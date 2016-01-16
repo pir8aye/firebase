@@ -28,7 +28,7 @@ var client      = new Twitter({
 // learn about saving data to firebase: https://www.firebase.com/docs/web/guide/saving-data.html
 // sky_folder.child(unique_id).push(content_object)
 
-client.stream('statuses/filter', {track: 'god'}, function(stream) {
+client.stream('statuses/filter', {track: 'san francisco'}, function(stream) {
   stream.on('data', function(tweet) {
     console.log(tweet.text)
     ref.child(Date.now()).set({text: tweet.text})
