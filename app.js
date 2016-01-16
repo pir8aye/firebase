@@ -17,8 +17,6 @@ ref.on('child_added', function(snap){
 
   $('#tweets').prepend(snap.val().text + ' <br><br>')
 
-  // console.log(snap.val())
-  // console.log(snap.key())
 })
 
 // remove everything at our ref
