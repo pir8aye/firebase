@@ -1,13 +1,9 @@
 'use strict'
 
-var express       = require('express');
-var app           = express();
-
+var Twitter       = require('twitter')
 var Firebase      = require('firebase')
 // var ref           = new Firebase('https://<your_fb_url>.firebaseio.com/')
 var ref           = new Firebase("https://ch-twitter.firebaseio.com/");
-
-var Twitter       = require('twitter')
 
 // make sure keys are in quotes
 // do not commit to github with your keys included
@@ -18,27 +14,17 @@ var client      = new Twitter({
   access_token_secret: 'TOKEN_SECRET'
 })
 
-// stream da tweets! Everything you can stream: https://dev.twitter.com/streaming/overview
+// Stream da tweets! Everything you can stream: https://dev.twitter.com/streaming/overview
 // check out the npm package at: https://www.npmjs.com/package/twitter
 // learn about saving data to firebase: https://www.firebase.com/docs/web/guide/saving-data.html
 // ref.child(unique_id).set(content_object)
 
 client.stream('statuses/filter', {track: 'san francisco'}, function(stream) {
   stream.on('data', function(tweet) {
-    // console.log(tweet.text)
+    console.log(tweet.text)
     ref.child(Date.now()).set({text: tweet.text})
   })
 })
-
-// tells express where to look for front-end files
-// this will all be covered in a week or two
-app.use(express.static('public'));
-
-// send our index file when the route is hit
-// this will also be covered in a week or two
-app.get('/', function (req, res) {
-  res.sendfile('index.html');
-});
 
 // launch the server on the port selected
 app.listen(3000);
