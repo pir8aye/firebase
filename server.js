@@ -20,13 +20,12 @@ var client      = new Twitter({
 
 // stream da tweets! Everything you can stream: https://dev.twitter.com/streaming/overview
 // check out the npm package at: https://www.npmjs.com/package/twitter
+// learn about saving data to firebase: https://www.firebase.com/docs/web/guide/saving-data.html
+// ref.child(unique_id).set(content_object)
+
 client.stream('statuses/filter', {track: 'san francisco'}, function(stream) {
   stream.on('data', function(tweet) {
-    console.log(tweet.text)
-
-    // learn more about saving data to firebase: https://www.firebase.com/docs/web/guide/saving-data.html
-    // ref.child(unique_id).set(content_object)
-
+    // console.log(tweet.text)
     ref.child(Date.now()).set({text: tweet.text})
   })
 })
@@ -41,6 +40,6 @@ app.get('/', function (req, res) {
   res.sendfile('index.html');
 });
 
-// launch the server on the port shown
+// launch the server on the port selected
 app.listen(3000);
 console.log('listening on 3000');
