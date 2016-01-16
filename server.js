@@ -24,9 +24,8 @@ client.stream('statuses/filter', {track: 'san francisco'}, function(stream) {
   stream.on('data', function(tweet) {
     console.log(tweet.text)
 
-    // Unique id!! In this case we are using Date.now() + adding tweet text to firebase
     // learn more about saving data to firebase: https://www.firebase.com/docs/web/guide/saving-data.html
-    // ref.child(unique_id).set({content_object})
+    // ref.child(unique_id).set(content_object)
 
     ref.child(Date.now()).set({text: tweet.text})
   })
